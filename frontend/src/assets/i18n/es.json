@@ -1,0 +1,103 @@
+{
+  "APP": {
+    "TITLE": "Budget Tracker"
+  },
+  "NAV": {
+    "DASHBOARD": "Dashboard",
+    "BUDGETS": "Presupuestos",
+    "TRANSACTIONS": "Transacciones",
+    "CATEGORIES": "Categorías",
+    "SETTINGS": "Configuración",
+    "LOGOUT": "Cerrar sesión"
+  },
+  "AUTH": {
+    "LOGIN_TITLE": "Iniciar Sesión",
+    "LOGIN_SUBTITLE": "Gestiona tus presupuestos personales",
+    "LOGIN_BUTTON": "Ingresar",
+    "REGISTER_TITLE": "Crear Cuenta",
+    "REGISTER_BUTTON": "Registrarse",
+    "EMAIL": "Correo electrónico",
+    "PASSWORD": "Contraseña",
+    "PASSWORD_HINT": "Mínimo 8 caracteres",
+    "FULL_NAME": "Nombre completo",
+    "NO_ACCOUNT": "¿No tienes cuenta? Regístrate",
+    "HAS_ACCOUNT": "¿Ya tienes cuenta? Inicia sesión"
+  },
+  "DASHBOARD": {
+    "TOTAL_INCOME": "Ingresos totales",
+    "TOTAL_EXPENSES": "Gastos totales",
+    "BALANCE": "Saldo",
+    "MONTHLY_AVG": "Gasto promedio mensual",
+    "SAVINGS": "Ahorro",
+    "BUDGET_USAGE": "Uso del presupuesto",
+    "OVER_BUDGET": "¡Presupuesto excedido!",
+    "NEAR_LIMIT": "Cerca del límite",
+    "ON_TRACK": "En buen camino",
+    "ALERT_EXCEEDED": "¡Has excedido tu presupuesto! Revisa tus gastos.",
+    "ALERT_WARNING": "Estás cerca de alcanzar el límite de tu presupuesto.",
+    "CHART_CATEGORY_DIST": "Distribución por categoría",
+    "CHART_BUDGET_VS_ACTUAL": "Presupuesto vs. Gasto real",
+    "CHART_BALANCE_HISTORY": "Saldo a lo largo del tiempo",
+    "CHART_FIXED_VS_VARIABLE": "Gastos fijos vs. variables"
+  },
+  "BUDGETS": {
+    "TITLE": "Presupuestos",
+    "NEW": "Nuevo presupuesto",
+    "NAME": "Nombre",
+    "TOTAL_AMOUNT": "Monto total",
+    "PERIOD": "Periodo",
+    "MONTHLY": "Mensual",
+    "BIWEEKLY": "Quincenal",
+    "START_DATE": "Fecha inicio",
+    "END_DATE": "Fecha fin",
+    "TOTAL": "Total",
+    "SPENT": "Gastado",
+    "REMAINING": "Disponible",
+    "USED": "usado"
+  },
+  "TRANSACTIONS": {
+    "TITLE": "Transacciones",
+    "NEW": "Nueva transacción",
+    "SEARCH": "Buscar transacciones...",
+    "DESCRIPTION": "Descripción",
+    "AMOUNT": "Monto",
+    "TYPE": "Tipo",
+    "DATE": "Fecha",
+    "BUDGET": "Presupuesto",
+    "CATEGORY": "Categoría",
+    "NOTES": "Notas",
+    "INCOME": "Ingreso",
+    "EXPENSE": "Gasto",
+    "EXPORT": "Exportar CSV",
+    "IMPORT": "Importar CSV"
+  },
+  "CATEGORIES": {
+    "TITLE": "Categorías",
+    "NEW": "Nueva categoría",
+    "NAME": "Nombre",
+    "DESCRIPTION": "Descripción",
+    "EXPENSE_TYPE": "Tipo de gasto",
+    "FIXED": "Fijo",
+    "VARIABLE": "Variable",
+    "ICON": "Ícono",
+    "COLOR": "Color",
+    "DEFAULT": "Por defecto"
+  },
+  "SETTINGS": {
+    "TITLE": "Configuración",
+    "PREFERENCES": "Preferencias",
+    "LANGUAGE": "Idioma",
+    "CURRENCY": "Moneda",
+    "SAVE": "Guardar cambios",
+    "SAVED": "Configuración guardada"
+  },
+  "COMMON": {
+    "CREATE": "Crear",
+    "UPDATE": "Actualizar",
+    "CANCEL": "Cancelar",
+    "DELETE": "Eliminar",
+    "ALL": "Todos",
+    "NONE": "Ninguna",
+    "SAVE": "Guardar"
+  }
+}

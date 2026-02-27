@@ -1,0 +1,103 @@
+{
+  "APP": {
+    "TITLE": "Budget Tracker"
+  },
+  "NAV": {
+    "DASHBOARD": "Dashboard",
+    "BUDGETS": "Budgets",
+    "TRANSACTIONS": "Transactions",
+    "CATEGORIES": "Categories",
+    "SETTINGS": "Settings",
+    "LOGOUT": "Log out"
+  },
+  "AUTH": {
+    "LOGIN_TITLE": "Sign In",
+    "LOGIN_SUBTITLE": "Manage your personal budgets",
+    "LOGIN_BUTTON": "Sign In",
+    "REGISTER_TITLE": "Create Account",
+    "REGISTER_BUTTON": "Sign Up",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "PASSWORD_HINT": "Minimum 8 characters",
+    "FULL_NAME": "Full name",
+    "NO_ACCOUNT": "Don't have an account? Sign up",
+    "HAS_ACCOUNT": "Already have an account? Sign in"
+  },
+  "DASHBOARD": {
+    "TOTAL_INCOME": "Total income",
+    "TOTAL_EXPENSES": "Total expenses",
+    "BALANCE": "Balance",
+    "MONTHLY_AVG": "Monthly avg. expense",
+    "SAVINGS": "Savings",
+    "BUDGET_USAGE": "Budget usage",
+    "OVER_BUDGET": "Over budget!",
+    "NEAR_LIMIT": "Near limit",
+    "ON_TRACK": "On track",
+    "ALERT_EXCEEDED": "You've exceeded your budget! Review your spending.",
+    "ALERT_WARNING": "You're close to reaching your budget limit.",
+    "CHART_CATEGORY_DIST": "Distribution by category",
+    "CHART_BUDGET_VS_ACTUAL": "Budget vs. Actual spending",
+    "CHART_BALANCE_HISTORY": "Balance over time",
+    "CHART_FIXED_VS_VARIABLE": "Fixed vs. Variable expenses"
+  },
+  "BUDGETS": {
+    "TITLE": "Budgets",
+    "NEW": "New budget",
+    "NAME": "Name",
+    "TOTAL_AMOUNT": "Total amount",
+    "PERIOD": "Period",
+    "MONTHLY": "Monthly",
+    "BIWEEKLY": "Biweekly",
+    "START_DATE": "Start date",
+    "END_DATE": "End date",
+    "TOTAL": "Total",
+    "SPENT": "Spent",
+    "REMAINING": "Remaining",
+    "USED": "used"
+  },
+  "TRANSACTIONS": {
+    "TITLE": "Transactions",
+    "NEW": "New transaction",
+    "SEARCH": "Search transactions...",
+    "DESCRIPTION": "Description",
+    "AMOUNT": "Amount",
+    "TYPE": "Type",
+    "DATE": "Date",
+    "BUDGET": "Budget",
+    "CATEGORY": "Category",
+    "NOTES": "Notes",
+    "INCOME": "Income",
+    "EXPENSE": "Expense",
+    "EXPORT": "Export CSV",
+    "IMPORT": "Import CSV"
+  },
+  "CATEGORIES": {
+    "TITLE": "Categories",
+    "NEW": "New category",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "EXPENSE_TYPE": "Expense type",
+    "FIXED": "Fixed",
+    "VARIABLE": "Variable",
+    "ICON": "Icon",
+    "COLOR": "Color",
+    "DEFAULT": "Default"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "PREFERENCES": "Preferences",
+    "LANGUAGE": "Language",
+    "CURRENCY": "Currency",
+    "SAVE": "Save changes",
+    "SAVED": "Settings saved"
+  },
+  "COMMON": {
+    "CREATE": "Create",
+    "UPDATE": "Update",
+    "CANCEL": "Cancel",
+    "DELETE": "Delete",
+    "ALL": "All",
+    "NONE": "None",
+    "SAVE": "Save"
+  }
+}
