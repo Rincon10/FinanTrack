@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -29,7 +30,7 @@ import { CurrencyFormatPipe } from '@shared/pipes/currency-format.pipe';
   selector: 'app-transaction-list',
   standalone: true,
   imports: [
-    CommonModule, ReactiveFormsModule,
+    CommonModule,FormsModule, ReactiveFormsModule,
     MatTableModule, MatPaginatorModule, MatSortModule,
     MatCardModule, MatButtonModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatSelectModule,
