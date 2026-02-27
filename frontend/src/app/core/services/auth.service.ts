@@ -9,47 +9,36 @@ import {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly apiUrl = `${environment.apiUrl}/auth`;
-  private readonly tokenKey = 'access_token';
-  private readonly userKey = 'current_user';
 
-  private currentUser = signal<UserResponse | null>(this.loadUser());
+  private currentUser = signal<UserResponse | null>({
+    id: 1,
+    email: 'default@budget.app',
+    fullName: 'Usuario por Defecto',
+    preferredCurrency: 'COP',
+    preferredLocale: 'es'
+  });
 
   user = computed(() => this.currentUser());
 
   constructor(private http: HttpClient) {}
 
   login(request: LoginRequest): Observable<ApiResponse<AuthResponse>> {
-    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, request)
-      .pipe(tap(res => this.handleAuth(res.data)));
+    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, request);
   }
 
   register(request: RegisterRequest): Observable<ApiResponse<AuthResponse>> {
-    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/register`, request)
-      .pipe(tap(res => this.handleAuth(res.data)));
+    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/register`, request);
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.userKey);
-    this.currentUser.set(null);
+    // No-op: sin autenticación
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return null;
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
-  }
-
-  private handleAuth(auth: AuthResponse): void {
-    localStorage.setItem(this.tokenKey, auth.accessToken);
-    localStorage.setItem(this.userKey, JSON.stringify(auth.user));
-    this.currentUser.set(auth.user);
-  }
-
-  private loadUser(): UserResponse | null {
-    const raw = localStorage.getItem(this.userKey);
-    return raw ? JSON.parse(raw) : null;
+    return true;
   }
 }
