@@ -3,6 +3,7 @@ package com.budget.api.entity;
 import com.budget.api.enums.ExpenseType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "categories",
@@ -11,7 +12,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Category extends BaseEntity {
 
     @Column(nullable = false, length = 80)

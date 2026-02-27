@@ -3,6 +3,7 @@ package com.budget.api.entity;
 import com.budget.api.enums.BudgetPeriod;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Budget extends BaseEntity {
 
     @Column(nullable = false, length = 100)

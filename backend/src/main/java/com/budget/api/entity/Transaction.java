@@ -3,6 +3,7 @@ package com.budget.api.entity;
 import com.budget.api.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Transaction extends BaseEntity {
 
     @Column(nullable = false, length = 200)
