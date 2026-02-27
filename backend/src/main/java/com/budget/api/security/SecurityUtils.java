@@ -16,7 +16,7 @@ public class SecurityUtils {
     public Long getCurrentUserId() {
         return userRepository.findByEmail(DEFAULT_EMAIL)
                 .map(User::getId)
-                .orElseThrow(() -> new RuntimeException("Usuario por defecto no encontrado"));
+                .orElse(1l);
     }
 
     public String getCurrentUserEmail() {
