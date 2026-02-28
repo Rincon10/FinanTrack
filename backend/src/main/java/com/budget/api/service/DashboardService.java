@@ -29,11 +29,21 @@ public class DashboardService {
 
     @Transactional(readOnly = true)
     public DashboardResponse getDashboardMetrics(Long userId, LocalDate startDate, LocalDate endDate) {
+        // Fetch active budgets first (needed for default date range and budgetVsActual)
+        List<Budget> activeBudgets = budgetRepository.findActiveBudgetsByDate(userId, LocalDate.now());
+
+        // Default dates from active budget period instead of just current month
         if (startDate == null) {
-            startDate = YearMonth.now().atDay(1);
+            startDate = activeBudgets.stream()
+                    .map(Budget::getStartDate)
+                    .min(LocalDate::compareTo)
+                    .orElse(YearMonth.now().atDay(1));
         }
         if (endDate == null) {
-            endDate = YearMonth.now().atEndOfMonth();
+            endDate = activeBudgets.stream()
+                    .map(Budget::getEndDate)
+                    .max(LocalDate::compareTo)
+                    .orElse(YearMonth.now().atEndOfMonth());
         }
 
         BigDecimal totalIncome = transactionRepository.sumByUserIdAndTypeAndDateRange(
@@ -50,7 +60,6 @@ public class DashboardService {
         BigDecimal monthlyAverage = sixMonthExpenses.divide(BigDecimal.valueOf(6), 2, RoundingMode.HALF_UP);
 
         // Porcentaje de uso del presupuesto
-        List<Budget> activeBudgets = budgetRepository.findActiveBudgetsByDate(userId, LocalDate.now());
         BigDecimal totalBudget = activeBudgets.stream()
                 .map(Budget::getTotalAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
