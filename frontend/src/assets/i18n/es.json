@@ -38,7 +38,8 @@
     "CHART_CATEGORY_DIST": "Distribución por categoría",
     "CHART_BUDGET_VS_ACTUAL": "Presupuesto vs. Gasto real",
     "CHART_BALANCE_HISTORY": "Saldo a lo largo del tiempo",
-    "CHART_FIXED_VS_VARIABLE": "Gastos fijos vs. variables"
+    "CHART_FIXED_VS_VARIABLE": "Gastos fijos vs. variables",
+    "CHART_INCOME_VS_EXPENSES": "Ingresos vs. Gastos"
   },
   "BUDGETS": {
     "TITLE": "Presupuestos",

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { Subject, timer } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { DashboardService } from '@core/services/dashboard.service';
 import { DashboardResponse } from '@core/models/api.models';
 import { CurrencyFormatPipe } from '@shared/pipes/currency-format.pipe';
@@ -129,6 +131,19 @@ import {
             [fill]="stackedFill">
           </apx-chart>
         </div>
+
+        <!-- Barras agrupadas: Ingresos vs Gastos -->
+        <div class="chart-card">
+          <h3>{{ 'DASHBOARD.CHART_INCOME_VS_EXPENSES' | translate }}</h3>
+          <apx-chart
+            [series]="incomeVsExpenseSeries"
+            [chart]="incomeVsExpenseChart"
+            [xaxis]="incomeVsExpenseXAxis"
+            [plotOptions]="incomeVsExpensePlotOptions"
+            [dataLabels]="incomeVsExpenseDataLabels"
+            [colors]="['#4caf50', '#f44336']">
+          </apx-chart>
+        </div>
       </div>
     </div>
   `,
@@ -142,7 +157,10 @@ import {
     .warning  { color: #ff9800 !important; }
   `]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
+  private readonly POLL_INTERVAL = 30_000; // 30 seconds
+
   data: DashboardResponse | null = null;
   loading = true;
 
@@ -176,6 +194,15 @@ export class DashboardComponent implements OnInit {
   };
   stackedFill: ApexFill = { opacity: 1 };
 
+  // Income vs Expense chart
+  incomeVsExpenseSeries: ApexAxisChartSeries = [];
+  incomeVsExpenseChart: ApexChart = { type: 'bar', height: 350 };
+  incomeVsExpenseXAxis: ApexXAxis = { categories: [] };
+  incomeVsExpensePlotOptions: ApexPlotOptions = {
+    bar: { horizontal: false, columnWidth: '55%' }
+  };
+  incomeVsExpenseDataLabels: ApexDataLabels = { enabled: false };
+
   chartResponsive: ApexResponsive[] = [{
     breakpoint: 480,
     options: { chart: { width: 300 }, legend: { position: 'bottom' } }
@@ -185,11 +212,11 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.loadDashboard();
-  }
-
-  private loadDashboard(): void {
-    this.dashboardService.getDashboard().subscribe({
+    // Initial load + periodic polling every 30 seconds
+    timer(0, this.POLL_INTERVAL).pipe(
+      switchMap(() => this.dashboardService.getDashboard()),
+      takeUntil(this.destroy$)
+    ).subscribe({
       next: (res) => {
         this.data = res.data;
         this.buildCharts();
@@ -199,6 +226,11 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private buildCharts(): void {
@@ -228,5 +260,14 @@ export class DashboardComponent implements OnInit {
       { name: 'Gastos Variables', data: this.data.fixedVsVariable.map(f => f.variableExpenses) }
     ];
     this.stackedXAxis = { categories: this.data.fixedVsVariable.map(f => f.month) };
+
+    // Income vs Expenses
+    if (this.data.incomeVsExpenses) {
+      this.incomeVsExpenseSeries = [
+        { name: 'Ingresos', data: this.data.incomeVsExpenses.map(i => i.income) },
+        { name: 'Gastos', data: this.data.incomeVsExpenses.map(i => i.expense) }
+      ];
+      this.incomeVsExpenseXAxis = { categories: this.data.incomeVsExpenses.map(i => i.month) };
+    }
   }
 }

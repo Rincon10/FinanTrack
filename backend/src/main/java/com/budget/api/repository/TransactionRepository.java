@@ -67,4 +67,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long>,
     long countExpensesSince(@Param("userId") Long userId, @Param("since") LocalDate since);
 
     List<Transaction> findByBudgetIdAndDeletedFalseOrderByTransactionDateDesc(Long budgetId);
+
+    @Query("SELECT FUNCTION('TO_CHAR', t.transactionDate, 'YYYY-MM'), t.type, COALESCE(SUM(t.amount), 0) " +
+           "FROM Transaction t WHERE t.budget.user.id = :userId AND t.deleted = false " +
+           "AND t.transactionDate BETWEEN :start AND :end " +
+           "GROUP BY FUNCTION('TO_CHAR', t.transactionDate, 'YYYY-MM'), t.type " +
+           "ORDER BY FUNCTION('TO_CHAR', t.transactionDate, 'YYYY-MM')")
+    List<Object[]> monthlyIncomeVsExpenses(@Param("userId") Long userId,
+                                            @Param("start") LocalDate start,
+                                            @Param("end") LocalDate end);
 }

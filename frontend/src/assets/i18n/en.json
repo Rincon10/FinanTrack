@@ -38,7 +38,8 @@
     "CHART_CATEGORY_DIST": "Distribution by category",
     "CHART_BUDGET_VS_ACTUAL": "Budget vs. Actual spending",
     "CHART_BALANCE_HISTORY": "Balance over time",
-    "CHART_FIXED_VS_VARIABLE": "Fixed vs. Variable expenses"
+    "CHART_FIXED_VS_VARIABLE": "Fixed vs. Variable expenses",
+    "CHART_INCOME_VS_EXPENSES": "Income vs. Expenses"
   },
   "BUDGETS": {
     "TITLE": "Budgets",

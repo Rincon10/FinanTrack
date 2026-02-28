@@ -21,6 +21,7 @@ public class DashboardResponse {
     private List<BudgetVsActual> budgetVsActual;
     private List<BalanceOverTime> balanceHistory;
     private List<FixedVsVariable> fixedVsVariable;
+    private List<IncomeVsExpense> incomeVsExpenses;
 
     @Data
     @Builder
@@ -56,5 +57,14 @@ public class DashboardResponse {
         private String month;
         private BigDecimal fixedExpenses;
         private BigDecimal variableExpenses;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    public static class IncomeVsExpense {
+        private String month;
+        private BigDecimal income;
+        private BigDecimal expense;
     }
 }

@@ -139,6 +139,7 @@ export interface DashboardResponse {
   budgetVsActual: BudgetVsActual[];
   balanceHistory: BalanceOverTime[];
   fixedVsVariable: FixedVsVariable[];
+  incomeVsExpenses: IncomeVsExpense[];
 }
 
 export interface CategoryBreakdown {
@@ -163,4 +164,10 @@ export interface FixedVsVariable {
   month: string;
   fixedExpenses: number;
   variableExpenses: number;
+}
+
+export interface IncomeVsExpense {
+  month: string;
+  income: number;
+  expense: number;
 }

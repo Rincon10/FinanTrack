@@ -16,7 +16,9 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,6 +75,9 @@ public class DashboardService {
         // Fijos vs variables
         List<DashboardResponse.FixedVsVariable> fixedVsVariable = buildFixedVsVariable(userId);
 
+        // Ingresos vs gastos por mes
+        List<DashboardResponse.IncomeVsExpense> incomeVsExpenses = buildIncomeVsExpenses(userId);
+
         return DashboardResponse.builder()
                 .totalIncome(totalIncome)
                 .totalExpenses(totalExpenses)
@@ -84,6 +89,7 @@ public class DashboardService {
                 .budgetVsActual(budgetVsActual)
                 .balanceHistory(balanceHistory)
                 .fixedVsVariable(fixedVsVariable)
+                .incomeVsExpenses(incomeVsExpenses)
                 .build();
     }
 
@@ -139,6 +145,43 @@ public class DashboardService {
                     .build());
         }
         return history;
+    }
+
+    private List<DashboardResponse.IncomeVsExpense> buildIncomeVsExpenses(Long userId) {
+        LocalDate now = LocalDate.now();
+        LocalDate sixMonthsAgo = YearMonth.from(now.minusMonths(5)).atDay(1);
+        LocalDate endOfMonth = YearMonth.from(now).atEndOfMonth();
+
+        List<Object[]> rows = transactionRepository.monthlyIncomeVsExpenses(userId, sixMonthsAgo, endOfMonth);
+
+        // Use LinkedHashMap to preserve month order
+        Map<String, BigDecimal[]> monthMap = new LinkedHashMap<>();
+        for (int i = 5; i >= 0; i--) {
+            String key = YearMonth.from(now.minusMonths(i)).toString();
+            monthMap.put(key, new BigDecimal[]{BigDecimal.ZERO, BigDecimal.ZERO});
+        }
+
+        for (Object[] row : rows) {
+            String month = (String) row[0];
+            TransactionType type = (TransactionType) row[1];
+            BigDecimal amount = (BigDecimal) row[2];
+            BigDecimal[] values = monthMap.get(month);
+            if (values != null) {
+                if (type == TransactionType.INCOME) {
+                    values[0] = amount;
+                } else {
+                    values[1] = amount;
+                }
+            }
+        }
+
+        return monthMap.entrySet().stream()
+                .map(entry -> DashboardResponse.IncomeVsExpense.builder()
+                        .month(entry.getKey())
+                        .income(entry.getValue()[0])
+                        .expense(entry.getValue()[1])
+                        .build())
+                .collect(Collectors.toList());
     }
 
     private List<DashboardResponse.FixedVsVariable> buildFixedVsVariable(Long userId) {
