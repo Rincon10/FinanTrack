@@ -5,8 +5,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { Subject, timer } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { EMPTY, Subject, timer } from 'rxjs';
+import { catchError, switchMap, takeUntil } from 'rxjs/operators';
 import { DashboardService } from '@core/services/dashboard.service';
 import { DashboardResponse } from '@core/models/api.models';
 import { CurrencyFormatPipe } from '@shared/pipes/currency-format.pipe';
@@ -214,17 +214,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Initial load + periodic polling every 30 seconds
     timer(0, this.POLL_INTERVAL).pipe(
-      switchMap(() => this.dashboardService.getDashboard()),
+      switchMap(() => this.dashboardService.getDashboard().pipe(
+        catchError(() => {
+          this.loading = false;
+          return EMPTY;
+        })
+      )),
       takeUntil(this.destroy$)
-    ).subscribe({
-      next: (res) => {
-        this.data = res.data;
-        this.buildCharts();
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-      }
+    ).subscribe((res) => {
+      this.data = res.data;
+      this.buildCharts();
+      this.loading = false;
     });
   }
 
